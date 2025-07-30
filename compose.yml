@@ -1,0 +1,14 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=local
+      - POSTGRES_PASSWORD=local
+      - POSTGRES_DB=local
+    restart: always
+    networks:
+      - postgres
+networks:
+  postgres:
