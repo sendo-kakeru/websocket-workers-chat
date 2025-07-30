@@ -1,0 +1,53 @@
+version: 2
+
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: 'weekly'
+      day: 'sunday'
+    reviewers:
+      - "sendo-kakeru"
+    assignees:
+      - "sendo-kakeru"
+    open-pull-requests-limit: 20
+    ignore:
+      - dependency-name: '@types/node'
+        update-types: ['version-update:semver-major']
+
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: "weekly"
+    reviewers:
+      - "sendo-kakeru"
+    assignees:
+      - "sendo-kakeru"
+    groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - '@types/react'
+          - '@types/react-dom'
+      react-router:
+        patterns:
+          - react-router
+          - '@types/react-router'
+          - '@react-router/*'
+      storybook:
+        patterns:
+          - 'storybook'
+          - '@storybook/*'
+      radix-ui:
+        patterns:
+          - 'radix-ui'
+          - '@radix-ui/*'
+      tailwindcss:
+        patterns:
+          - tailwindcss
+          - '@tailwindcss/*'
+      vitest:
+        patterns:
+          - vitest
+          - '@vitest/*'

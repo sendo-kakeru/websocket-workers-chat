@@ -1,0 +1,30 @@
+name: Setup pnpm
+
+description: Node.js, pnpm のセットアップ、pnpm install、pnpm の cache
+
+inputs:
+  install-options:
+    description: pnpm install する際のオプション
+    required: false
+    default: ""
+
+runs:
+  using: composite
+  steps:
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22.0.0"
+        cache: pnpm
+
+    - name: Set config
+      if: ${{ contains(inputs.install-options, '-F') || contains(inputs.install-options, '--filter') }}
+      shell: bash
+      run: pnpm config set --location project dedupe-peer-dependents false
+
+    - name: Install dependencies
+      shell: bash
+      run: pnpm ${{ inputs.install-options }} i --frozen-lockfile
